@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Health Care Center - Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Chatbot Sidebar Styling */
+        .chatbot-sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 300px; /* Adjust the width as needed */
+            border-left: 2px solid #ccc;
+            background-color: #f8f9fa;
+            display: none; /* Initially hidden */
+            z-index: 9999; /* To make sure it is on top */
+        }
+        .chatbot-sidebar iframe {
+            width: 100%;
+            height: 90%;
+            border: none;
+        }
+        .chatbox-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 20px;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            z-index: 10000; /* Above the chatbot sidebar */
+        }
+        .chatbox-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <div class="result-container">
+            {% if predicted_disease %}
+                <h3>Disease: {{ predicted_disease }}</h3>
+                <p><strong>Description: </strong>{{ dis_des }}</p>
+
+                <h4>Precautions</h4>
+                <ul>
+                    {% for pre in my_precautions %}
+                    <li>{{ pre }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h4>Medications</h4>
+                <ul>
+                    {% for med in medications %}
+                    <li>{{ med }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h4>Diet</h4>
+                <ul>
+                    {% for diet in my_diet %}
+                    <li>{{ diet }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h4>Workout</h4>
+                <p>{{ workout }}</p>
+            {% else %}
+                <p>No prediction available.</p>
+            {% endif %}
+        </div>
+    </div>
+
+   
+
+
+
+    <!-- Script Includes -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

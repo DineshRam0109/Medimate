@@ -1,0 +1,447 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dinesh Health Care Center</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+
+  <style>
+             /* Chatbot Sidebar */
+#chatbot-sidebar {
+    position: fixed;
+    right: -320px; /* Hidden off-screen initially */
+    bottom: 0;
+    width: 320px;
+    height: 500px;
+    background-color: #ffffff;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: right 0.3s ease-in-out; /* Smooth slide animation */
+}
+
+#chatbot-sidebar.open {
+    right: 0; /* Slide into view */
+}
+
+#chatbot-header {
+    background-color: #0078d7;
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chatbot-header h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+#close-chatbot {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#chatbot-sidebar iframe {
+    flex: 1;
+    border: none;
+    border-bottom-left-radius: 15px;
+}
+/* Chatbot Toggle Button */
+.chatbox-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.chatbox-btn:hover {
+    background-color: #005bb5;
+}
+
+.chatbox-text {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: px;
+    display: block;
+    text-align: center;
+}
+/* Tooltip for Chatbot Button */
+.chatbox-container {
+    position: relative;
+}
+
+.chatbox-tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: absolute;
+    bottom: 70px;
+    right: 10px;
+    z-index: 1002;
+    white-space: nowrap;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.chatbox-container:hover .chatbox-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #chatbot-sidebar {
+        width: 100%; /* Full width on small screens */
+        height: 60%;
+    }
+
+    .chatbox-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}
+
+
+
+        /* Styling for the content */
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-danger {
+            width: 100%;
+        }
+
+        .logo {
+            width: 60px;
+            height: 50px;
+            color: black;
+            margin-top: 0;
+            margin-left: 2px;
+        }
+
+        .myimg {
+            width: 50px;
+            height: 50px;
+            border: 2px solid black;
+            border-radius: 25px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Chatbot Sidebar -->
+    <body>
+        <!-- Chatbot Sidebar -->
+        <div id="chatbot-sidebar">
+            <div id="chatbot-header">
+                <h4>Chatbot Assistant</h4>
+                <button id="close-chatbot" onclick="toggleChat()">×</button>
+            </div>
+            <iframe src="http://localhost:8501" title="Chatbot"></iframe>
+        </div>
+    
+        <!-- Chatbot Toggle Button -->
+        <button class="chatbox-btn" onclick="toggleChat()">
+            💬
+            <span class="chatbox-text">Chat</span>
+        </button>
+    
+    
+    <script>
+        function toggleChat() {
+            const chatbotSidebar = document.getElementById('chatbot-sidebar');
+            const isOpen = chatbotSidebar.classList.contains('open');
+            chatbotSidebar.classList.toggle('open', !isOpen);
+
+            // Hide badge when opened
+            if (!isOpen) {
+                document.getElementById('chatbox-badge').style.display = 'none';
+            }
+        }
+
+        // Example for showing unread message badge
+        document.getElementById('chatbox-badge').style.display = 'block'; // Show badge
+    </script>
+</body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Logo at the top-left corner -->
+            <div class="logo">
+                <img class="myimg" src="https://global-uploads.webflow.com/5e157548d6f7910beea4e2d6/62e7c3d0894fda6f903b0a5f_healthcare-logo-generator.png" alt="Healthcare Logo">
+            </div>
+            
+
+            <a class="navbar-brand" href="#">Health Center</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Blog</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+<!-- main form of page -->
+<h1 class="mt-4 my-4 text-center text-green">Dinesh Health Care Center</h1>
+<div class="container my-4 mt-4" style="background: black; color: white; border-radius: 15px; padding: 40px;">
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <label for="symptoms">Select Symptoms:</label>
+            <input type="text" class="form-control", id="symptoms" name="symptoms" placeholder="Type the Symptoms here....">
+
+        </div>
+        <br>
+        <button type="button" id="startSpeechRecognition" class="btn btn-primary" style="margin-left:3px;border:1px solid white; border-radius:20px;">
+            Start Speech Recognition
+        </button>
+        <br>
+
+        <!-- Display the transcribed text here -->
+        <div name="mysysms" id="transcription"></div>
+
+      
+        <br>
+
+        <button type="submit" class="btn btn-danger btn-lg" style="width: 100%; padding: 14px; margin-bottom: 5px;">Predict</button>
+    </form>
+</div>
+
+
+
+
+
+<!-- Results -->
+<h1 class="text-center my-4 mt-4">Our Health Care Results</h1>
+<div class="container">
+
+    <div class="result-container">
+        <!-- Buttons to toggle display -->
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#diseaseModal" style="padding:4px;  margin: 5px 40px 5px 0; font-size:20px;font-weight:bold; width:140px; border-radius:5px; background:#F39334;color:black;">Disease</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#descriptionModal" style="padding:4px; margin: 5px 40px 5px 0; font-size:20px;font-weight:bold; width:140px; border-radius:5px; background:#268AF3 ;color:black;">Description</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#precautionModal" style="padding:4px; margin: 5px 40px 5px 0; font-size:20px;font-weight:bold; width:140px; border-radius:5px; background:#F371F9 ;color:black;">Precaution</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#medicationsModal" style="padding:4px; margin: 5px 40px 5px 0; font-size:20px;font-weight:bold; width:140px;border-radius:5px; background:#F8576F ;color:black;">Medications</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#workoutsModal" style="padding:4px; margin: 5px 40px 5px 0; font-size:20px;font-weight:bold; width:140px; border-radius:5px; background:#99F741 ;color:black;">Workouts</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#dietsModal" style="padding:4px; margin: 5px 40px 5px 0; font-size:20px;font-weight:bold; width:140px; border-radius:5px; background:#E5E23D;color:black;">Diets</button>
+    </div>
+
+
+<!-- Disease Modal -->
+    <div class="modal fade" id="diseaseModal" tabindex="-1" aria-labelledby="diseaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #020606; color:white;"> <!-- Set header background color inline -->
+                    <h5 class="modal-title" id="diseaseModalLabel">Predicted Disease</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background-color: var(--modal-body-color);">
+                    <!-- Set modal body background color inline -->
+                    <p>{{ predicted_disease }}</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Description Modal -->
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #020606; color:white;">
+                    <h5 class="modal-title" id="descriptionModalLabel">Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{ dis_des }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Precaution Modal -->
+    <div class="modal fade" id="precautionModal" tabindex="-1" aria-labelledby="precautionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #020606; color:white;">
+                    <h5 class="modal-title" id="precautionModalLabel">Precaution</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in my_precautions %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Medications Modal -->
+    <div class="modal fade" id="medicationsModal" tabindex="-1" aria-labelledby="medicationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #020606; color:white;">
+                    <h5 class="modal-title" id="medicationsModalLabel">Medications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in medications %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Workouts Modal -->
+    <div class="modal fade" id="workoutsModal" tabindex="-1" aria-labelledby="workoutsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #020606; color:white;">
+                    <h5 class="modal-title" id="workoutsModalLabel">Workouts</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in workout %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diets Modal -->
+    <div class="modal fade" id="dietsModal" tabindex="-1" aria-labelledby="dietsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #020606; color:white;">
+                    <h5 class="modal-title" id="dietsModalLabel">Diets</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for i in my_diet %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script>
+    const startSpeechRecognition = document.getElementById("startSpeechRecognition");
+    const transcription = document.getElementById("transcription");
+
+    // Check if browser supports SpeechRecognition
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    // Initialize speech recognition
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    startSpeechRecognition.addEventListener('click', () => {
+    recognition.start();
+});
+
+    recognition.addEventListener('result', (e) => {
+        let speechToText = Array.from(e.results)
+        .map(result => result[0].transcript)
+        .join('');
+
+    // Replace "comma" with a comma and "underscore" with an underscore
+    speechToText = speechToText.toLowerCase()
+        .replace(/\bcomma\b/g, ',')        // Replace "comma" with ","
+        .replace(/\bunderscore\b/g, '_');  // Replace "underscore" with "_"
+
+    // Remove any unnecessary spaces before or after commas or underscores
+    speechToText = speechToText
+        .replace(/\s*,\s*/g, ',')    // Remove spaces before and after commas
+        .replace(/\s*_\s*/g, '_');    // Remove spaces before and after underscores
+
+    // Display the transcribed text
+    transcription.innerText = speechToText;
+
+    // Set the processed text in the input field
+    document.getElementById('symptoms').value = speechToText;
+});
+
+recognition.addEventListener('end', recognition.stop);
+
+     </script>
+     
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+
+</html>
