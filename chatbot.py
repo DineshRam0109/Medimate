@@ -9,13 +9,10 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
-from flask import Flask, request
-from flask_cors import CORS
-
 
 load_dotenv()
-os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-genai.configure(api_key=os.getenv("GOOGLE_APPLICATION_CREDENTIALS"))
+os.getenv("GOOGLE_API_KEY")
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # read all pdf files and return text
 
@@ -57,7 +54,7 @@ def get_conversational_chain():
     Answer:
     """
 
-    model = ChatGoogleGenerativeAI(model="gemini-pro",
+    model = ChatGoogleGenerativeAI(model="gemini-1.5-pro",
                                    client=genai,
                                    temperature=0.3,
                                    )
@@ -133,7 +130,6 @@ def main():
             with st.spinner("Thinking..."):
                 response = user_input(prompt)
                 placeholder = st.empty()
-
                 full_response = ''
                 for item in response['output_text']:
                     full_response += item
